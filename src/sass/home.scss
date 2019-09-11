@@ -1,0 +1,804 @@
+@import 'variable';
+
+#app{
+  display: grid;
+  grid-template-columns: 280px 320px 1fr;
+  grid-template-rows: auto;
+  .nav{
+    background-color: $primary;
+    height: 100vh;
+    padding: 50px 0 0 50px;
+    box-sizing: border-box;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    h1{
+      color: $content_invert;
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      i{
+        display: inline-block;
+        transform: scale(1.7) translate(4px, -3px);
+      }
+    }
+    .addpen{
+      cursor: pointer;
+      display: block;
+      height: 50px;
+      width: 80%;
+      border: none;
+      margin: 30px 0 30px -10px;
+      border-radius: 6px;
+      font-size: 20px;
+      color: $primary;
+      font-weight: 500;
+      letter-spacing: 1px;
+      padding-right: 10px;
+      i{
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        background-color: $primary;
+        border-radius: 50%;
+        margin-right: 15px;
+        position: relative;
+        top: 5px;
+        &::after{
+          content: '+';
+          position: absolute;
+          color: $content_invert;
+          font-weight: 300;
+          font-size: 30px;
+          top: -8px;
+          left: 3.8px;
+        }
+      }
+      &:hover{
+        transform: translateY(1px);
+      }
+    }
+    ul{
+      color: $content_invert;
+      font-weight: 300;
+      display: flex;
+      flex-direction: column;
+      li{
+        margin-top: 15px;
+        margin-left: 10px;
+        cursor: pointer;
+        i{
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          filter: invert(100%);
+          position: relative;
+          margin-right: 10px;
+          top: 4px;
+        }
+        &.allpen{
+          margin-top: 0;
+          i{
+            background: url(../assets/file.svg) center center no-repeat;
+            background-size: contain;
+          }
+        }
+        &.path{
+          i{
+            background: url(../assets/star.svg) center center no-repeat;
+            background-size: contain;
+            width: 18px;
+            height: 18px;
+            left: 1px;
+            margin: 1px 12px 1px 0;
+          }
+        }
+        &.tag{
+          i{
+            background: url(../assets/label.svg) center center no-repeat;
+            background-size: contain;
+            transform: rotate(45deg);
+            top: 6px;
+          }
+        }
+        &.calendar{
+          i{
+            background: url(../assets/calendar_today.svg) center center no-repeat;
+            background-size: contain;
+          }
+        }
+        &.share{
+          i{
+            background: url(../assets/people.svg) center center no-repeat;
+            background-size: contain;
+          }
+        }
+        &.bucket{
+          i{
+            background: url(../assets/delete.svg) center center no-repeat;
+            background-size: contain;
+          }
+        }
+        &.mode{
+          margin: 95px 0 5px 15px;
+          position: relative;
+          cursor: default;
+          &::before, &::after{
+            cursor: pointer;
+            content: '';
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: $content_invert;
+            position: absolute;
+            top: 8px;
+            left: 52px;
+            pointer-events: none; 
+          }
+          &::after{
+            left: 95px;
+            background-color: transparent;
+            border: 1px solid $content_invert;
+          }
+          i{
+            width: 30px;
+            height: 30px;
+            top: 9px;
+            cursor: pointer;
+            &.sun{
+              background: url(../assets/wb_sunny.svg) center center no-repeat;
+              transform: scale(0.8);
+              margin-left: 15px;
+              filter: none;
+            }
+            &.moon{
+              top: 8px;
+              background: url(../assets/nights_stay.svg) center center no-repeat;
+            }
+          }
+        }
+        &.account{
+          color: #C1C6E1;
+          font-size: 22px;
+          letter-spacing: 1px;
+          font-weight: 500;
+          margin-left: 10px;
+          i.accountIcon{
+            width: 30px;
+            height: 30px;
+            background: url(../assets/beautiful-countryside-dance-2868441.jpg) center center no-repeat;
+            background-size: cover;
+            filter: none;
+            border-radius: 50%;
+            top: 6px;
+            margin-right: 5px;
+          }
+          i.more{
+            background: url(../assets/down.svg) center center no-repeat;
+            background-size: cover;
+            transform: scale(1.3);
+            top: 3px;
+          }
+        }
+      }
+    }
+    &.moon{
+      background-color: $moon_bk1;
+      .addpen{
+        color: $moon_content_invert;
+        background-color: $moonMain;
+        i{
+          background-color: $moon_bk1
+        }
+      }
+      ul{
+        li{
+          &.mode{
+            &::after{
+              background-color: $content_invert;
+              z-index: 0;
+            }
+            &::before{
+              background-color: transparent;
+              border: 1px solid $content_invert;
+            }
+            i{
+              &.sun{
+                filter: brightness(1000%);
+                left: 1px;
+              }
+              &.moon{
+                filter: none;
+                z-index: 1;
+              }
+            }
+          }
+          &.account{
+            color: $moonMain;
+          }
+        }
+      }
+    }
+  }
+  .list{
+    height: 100vh;
+    padding: 50px 30px 0;
+    box-sizing: border-box;
+    background-color: $bk_1;
+    border-right: 1px solid $border_color;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    position: relative;
+    >label{
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 58px;
+      left: 38px;
+      background: url(../assets/search_24px.svg) center center no-repeat;
+      background-size: cover;
+    }
+    input#search{
+      background-color: #E6E6E6;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      height: 35px;
+      outline: none;
+      padding-left: 35px;
+      box-sizing: border-box;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    h2{
+      display: inline-block;
+      margin: 20px 0;
+      color: $title;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+    >i{
+      height: 25px;
+      width: 25px;
+      display: inline-block;
+      position: relative;
+      top: 7px;
+      filter: invert(32%) sepia(10%) saturate(19%) hue-rotate(3deg) brightness(98%) contrast(93%);
+      cursor: pointer;
+      &.more{
+        background: url(../assets/down.svg) center center no-repeat;
+        background-size: cover;
+      }
+      &.display{
+        background: url(../assets/view_module.svg) center center no-repeat;
+        background-size: cover;
+        position: absolute;
+        right: 32px;
+        top: 103px;
+        &.block{
+          background: url(../assets/view_list.svg) center center no-repeat;
+          background-size: cover;
+        }
+        &.onlyTitle{
+          background: url(../assets/list.svg) center center no-repeat;
+          background-size: cover;
+        }
+      }
+    }
+    ul.displayBox{
+      position: absolute;
+      top: 130px;
+      left: 260px;
+      height: 190px;
+      width: 175px;
+      background-color: $bk_1;
+      border: 1px solid #C6C6C6;
+      box-shadow: 0px 3px 6px #E6E6E6;
+      border-radius: 5px;
+      z-index: 10;
+      padding: 10px;
+      box-sizing: border-box;
+      li{
+        color: $content;
+        font-size: 16px;
+        font-weight: 500;
+        height: 55px;
+        padding-left: 18px;
+        padding-top: 10px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        cursor: pointer;
+        i{
+          display: inline-block;
+          width: 25px;
+          height: 25px;
+          filter: invert(43%) sepia(5%) saturate(17%) hue-rotate(23deg) brightness(92%) contrast(100%);
+          transform: translate(-8px, 7px);
+        }
+        &:nth-child(1){
+          i{
+            background: url(../assets/view_module.svg) center center no-repeat;
+            background-size: contain;
+          }
+        }
+        &:nth-child(2){
+          i{
+            background: url(../assets/view_list.svg) center center no-repeat;
+            background-size: contain;
+          }
+        }
+        &:nth-child(3){
+          i{
+            background: url(../assets/list.svg) center center no-repeat;
+            background-size: contain;
+          }
+        }
+        &:hover{
+          background-color: $primary;
+          color: $content_invert;
+          i{
+            filter: invert(100%);
+          }
+        }
+      }
+    }
+    ul.itemList{
+      border-top: 1px solid $border_color;
+      width: 320px;
+      box-sizing: border-box;
+      margin-left: -30px;
+      padding: 30px;
+      height: 458px;
+      overflow-y: auto;
+      >li{
+        height: 250px;
+        width: 100%;
+        background-color: $content_invert;
+        border-radius: 5px 0 5px 5px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.178);
+        position: relative;
+        box-sizing: border-box;
+        padding: 30px 20px 0;
+        color: $title;
+        clip-path: polygon(0% 0%, 83% 0, 100% 17%, 100% 100%, 0% 100%);
+        margin-top: 20px;
+        cursor: pointer;
+        &:nth-child(1){
+          margin-top: 0;
+        }
+        &.selected{
+          box-shadow: inset 3px 3px 0 $primary, inset -3px -3px 0 $primary;
+          &:after{
+            content: '';
+            height: 70px;
+            width: 3px;
+            background-color: $primary;
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            transform: rotate(-44.5deg);
+          }
+        }
+        i.angle{
+          position: absolute;
+          top: -9px;
+          right: -7px;
+          width: 50px;
+          height: 50px;
+          border-radius: 5px;
+          background-color: $side;
+          box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.178);
+          transition: 1s;
+          overflow: hidden;
+          &::after{
+            content: '';
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(120deg, #8fd3f4 0%, #84fab0 100%);
+            position: absolute;
+            top: -50px;
+            left: 50px;
+            z-index: 0;
+            transition: .5s;
+            border-radius: 5px;
+          }
+          &:hover::after{
+            left: 3px;
+            top: -3px;
+          }
+        }
+        h3.title{
+          border-bottom: 1px solid $border_color;
+          line-height: 30px;
+          font-size: 18px;
+          font-weight: 500;
+          padding-bottom: 5px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          height: 30px;
+          i.star{
+            height: 18px;
+            width: 18px;
+            display: inline-block;
+            background: url(../assets/star.svg) center center no-repeat;
+            background-size: cover;
+            filter: invert(20%) sepia(58%) saturate(2495%) hue-rotate(219deg) brightness(89%) contrast(90%);
+            position: relative;
+            top: 1px;
+            margin: 0 3px;
+          }
+        }
+        p.text{
+          margin-top: 15px;
+          color: $content;
+          letter-spacing: 1px;
+          line-height: 22px;
+          font-size: 14px;
+          height: 110px;
+          overflow: hidden;
+          word-break: break-all;
+        }
+        span.date{
+          position: absolute;
+          bottom: 20px;
+          right: 20px;
+          font-weight: 500;
+          font-size: 14px;
+          i.attachment{
+            display: inline-block;
+            height: 15px;
+            width: 15px;
+            background: url(../assets/attachment.svg) center center no-repeat;
+            background-size: contain;
+            transform: rotate(90deg) translateX(2px);
+            margin-right: 5px;
+          }
+        }
+        h4.tag{
+          width: 60px;
+          height: 25px;
+          border-radius: 3px;
+          background-color: $side;
+          color: $primary;
+          font-size: 14px;
+          position: absolute;
+          bottom: 15px;
+          text-align: center;
+          padding: 5px;
+          box-sizing: border-box;
+        }
+        ul.additionalBox{
+          position: absolute;
+          top: 45px;
+          right: 20px;
+          width: 90px;
+          height: 80px;
+          background-color: $bk_1;
+          border: 1px solid #C6C6C6;
+          border-radius: 5px;
+          box-sizing: border-box;
+          padding: 5px;
+          li{
+            font-size: 14px;
+            font-weight: 500;
+            height: 50%;
+            box-sizing: border-box;
+            border-radius: 5px;
+            text-align: center;
+            &:nth-child(1){
+              padding-top: 7px;
+            }
+            &:nth-child(2){
+              padding-top: 2px;
+            }
+            i{
+              display: inline-block;
+              width: 20px;
+              height: 20px;
+              margin: 0 6px 0 0;
+              &.importantIcon{
+                height: 15px;
+                width: 15px;
+                background: url(../assets/star.svg) center center no-repeat;
+                background-size: cover;
+                transform: translate(-2px ,2px);
+                margin-left: 4px;
+              }
+              &.delete{
+                background: url(../assets/delete.svg) center center no-repeat;
+                background-size: cover;
+                transform: translateY(5px);
+              }
+            }
+            &:hover{
+              background-color: $primary;
+              color: $content_invert;
+              i{
+                filter: invert(100%);
+              }
+            }
+          }
+        }
+      }
+      &.block{
+        padding: 0;
+        >li{
+          clip-path: none;
+          box-shadow: none;
+          border-radius: 0;
+          background-color: transparent;
+          border-bottom: 1px solid #D8D8D8;
+          margin-top: 0;
+          height: 170px;
+          i.angle{
+            height: 20px;
+            width: 20px;
+            top: 10px;
+            right: 10px;
+            box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.1);
+            &::after{
+              top: -20px;
+              left: 20px;
+              height: 20px;
+              width: 20px;
+            }
+            &:hover::after{
+              top: 0;
+              left: 0;
+            }
+          }
+          p.text{
+            height: 45px;
+            margin-top: 10px;
+          }
+          h3.title{
+            border: none;
+          }
+          &.selected{
+            background-color: $side;
+            &::after{
+              display: none;
+            }
+          }
+          h4.tag{
+            background-color: $content_invert;
+          }
+        }
+      }
+      &.onlyTitle{
+        padding: 0;
+        >li{
+          clip-path: none;
+          box-shadow: none;
+          border-radius: 0;
+          background-color: transparent;
+          border-bottom: 1px solid #D8D8D8;
+          margin-top: 0;
+          height: 70px;
+          padding-top: 20px;
+          i.angle{
+            height: 10px;
+            width: 20px;
+            top: 10px;
+            right: 15px;
+            box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+            &::after{
+              top: -20px;
+              left: 20px;
+              height: 20px;
+              width: 20px;
+            }
+            &:hover::after{
+              top: 0;
+              left: 0;
+            }
+          }
+          p.text{
+            display: none;
+          }
+          h3.title{
+            border: none;
+            margin-left: 80px;
+            font-size: 16px;
+            i.star{
+              display: none;
+            }
+          }
+          &.selected{
+            background-color: $side;
+            &::after{
+              display: none;
+            }
+          }
+          h4.tag{
+            display: none;
+          }
+          span.date{
+            top: 29px;
+            left: 20px;
+            i.attachment{
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    &.moon{
+      background-color: $moon_bk2;
+      >label{
+        filter: invert(60%);
+      }
+      input#search{
+        background-color: $moon_bk1;
+      }
+      h2{
+        color: #A3A3A3;
+      }
+      >i{
+        filter: invert(60%);
+      }
+      ul.displayBox{
+        background-color: $moon_bk2;
+        box-shadow: none;
+        li{
+          color: #A3A3A3;
+          i{
+            filter: invert(60%);
+          }
+          &:hover{
+            background-color: $moonMain;
+            color: $moon_content_invert;
+            i{
+              filter: invert(20%);
+            }
+          }
+        }
+      }
+      ul.itemList{
+        border-top: 1px solid $border_color;
+        >li{
+          background-color: $moon_bk1;
+          box-shadow: 0px 0px 6px #A3A3A31A;
+          color: $moonTitle;
+          &.selected{
+            box-shadow: inset 3px 3px 0 $moonMain, inset -3px -3px 0 $moonMain;
+            &:after{
+              background-color: $moonMain;
+            }
+          }
+          i.angle{
+            background-color: $moonMain;
+          }
+          h3.title{
+            i.star{
+              filter: invert(89%) sepia(97%) saturate(6236%) hue-rotate(327deg) brightness(98%) contrast(103%);
+            }
+          }
+          p.text{
+            color: $moonContent;
+          }
+          span.date{
+            color: #A3A3A3;
+            i.attachment{
+              filter: invert(60%);
+            }
+          }
+          h4.tag{
+            background-color: $moon_bk2;
+            color: $moonMain;
+          }
+          ul.additionalBox{
+            background-color: $moon_bk2;
+            li{
+              color: #A3A3A3;
+              i{
+                filter: invert(60%);
+              }
+              &:hover{
+                background-color: $moonMain;
+                color: $moon_content_invert;
+                i{
+                  filter: invert(20%);
+                }
+              }
+            }
+          }
+        }
+        &.block{
+          >li{
+            background-color: transparent;
+            &.selected{
+              background-color: $moon_bk1;
+              box-shadow: none;
+            }
+            h4.tag{
+              background-color: $moon_bk2;
+            }
+          }
+        }
+        &.onlyTitle{
+          >li{
+            background-color: transparent;
+            &.selected{
+              background-color: $moon_bk1;
+              box-shadow: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  .content{
+    padding: 25px 35px;
+    position: relative;
+    input{
+      border: 1px dashed #D5D5D5;
+      border-radius: 5px;
+      height: 25px;
+      width: 75px;
+      text-align: center;
+      box-sizing: border-box;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      float: left;
+      margin-left: 15px;
+    }
+    ul.tagWrap{
+      display: flex;
+      margin-left: 75px;
+      li{
+        margin-left: 10px;
+        button{
+          height: 25px;
+          width: 75px;
+          border-radius: 5px;
+          text-align: center;
+          box-sizing: border-box;
+          font-size: 14px;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          background-color: $side;
+          color: $primary;
+          border: none;
+          position: relative;
+          i{
+            color: $content;
+            display: inline-block;
+            transform: scaleY(0.8);
+            position: absolute;
+            right: 5px;
+            top: -2px;
+            display: none;
+            cursor: pointer;
+          }
+          &:hover{
+            i{
+              display: table;
+            }
+          }
+        }
+      }
+    }
+    &.moon{
+      background-color: $moon_bk1;
+      input{
+        background-color: $moon_bk2;
+        color: $moonMain;
+        border-color: #a3a3a3;
+      }
+      ul.tagWrap{
+        li{
+          button{
+            background-color: $moon_bk2;
+            color: $moonMain;
+            i{
+              color: #a3a3a3;
+            }
+          }
+        }
+      }
+    }
+  }
+}
