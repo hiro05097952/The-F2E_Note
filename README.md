@@ -1,6 +1,4 @@
-# thef2e-note
-
-> The F2E
+# The F2E - Note
 
 ## Build Setup
 
