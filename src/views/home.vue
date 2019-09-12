@@ -40,7 +40,7 @@
         @click.stop="edit(key)">
           <i class="angle" @click.stop="additional = additional === key ? null : key"></i>
           <ul class="additionalBox" v-if="key === additional">
-            <li @click.stop="addStar(key)"><i class="importantIcon"></i>標記</li>
+            <li @click.stop="addStar(key, item.id)"><i class="importantIcon"></i>標記</li>
             <li @click.stop="removeMemo(item.id)"><i class="delete"></i>刪除</li>
           </ul>
           <h3 class="title">
@@ -136,7 +136,8 @@ export default {
       return `memo${String(value)}`;
     },
     addMemo() {
-      const id = this.convertor(Number(this.memo[this.memo.length - 1].id.substr(4, 3)) + 1);
+      const id = this.memo.length !== 0 ?
+        this.convertor(Number(this.memo[this.memo.length - 1].id.substr(4, 3)) + 1) : 'memo001';
       db.collection('NOTE').doc(id).set({
         text: '',
         isImportant: false,
@@ -149,7 +150,7 @@ export default {
     onEditorBlur() {
       // 離開對焦
       if (this.selected === null) { return; }
-      db.collection('NOTE').doc(this.convertor(this.selected + 1)).update({
+      db.collection('NOTE').doc(this.memo[this.selected].id).update({
         text: this.content,
       });
     },
@@ -161,7 +162,7 @@ export default {
       if (this.selected === null) { return; }
       const newArr = [...this.memo[this.selected].tag];
       newArr.push(this.newTag);
-      db.collection('NOTE').doc(this.convertor(this.selected + 1)).update({
+      db.collection('NOTE').doc(this.memo[this.selected].id).update({
         tag: newArr,
       }).then(() => {
         this.newTag = '';
@@ -170,12 +171,12 @@ export default {
     removeTag(key) {
       const newArr = [...this.memo[this.selected].tag];
       newArr.splice(key, 1);
-      db.collection('NOTE').doc(this.convertor(this.selected + 1)).update({
+      db.collection('NOTE').doc(this.memo[this.selected].id).update({
         tag: newArr,
       });
     },
-    addStar(key) {
-      db.collection('NOTE').doc(this.convertor(key + 1)).update({
+    addStar(key, id) {
+      db.collection('NOTE').doc(id).update({
         isImportant: !this.memo[key].isImportant,
       }).then(() => {
         this.additional = null;
