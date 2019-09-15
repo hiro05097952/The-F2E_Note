@@ -160,6 +160,11 @@ export default {
     },
     addTag() {
       if (this.selected === null) { return; }
+      if (this.newTag.length > 7) {
+        alert('字數太長啦！');
+        this.newTag = '';
+        return;
+      }
       const newArr = [...this.memo[this.selected].tag];
       newArr.push(this.newTag);
       db.collection('NOTE').doc(this.memo[this.selected].id).update({
